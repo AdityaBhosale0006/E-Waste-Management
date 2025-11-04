@@ -15,10 +15,10 @@ def create_app() -> Flask:
     app.secret_key = os.environ.get("SECRET_KEY", "dev-secret")
 
     database_url = os.environ.get(
-        "DATABASE_URL",
-        # Default to local SQLite for development/testing
-        "sqlite:///ewaste.db",
-    )
+    "DATABASE_URL",
+    "mysql+pymysql://root:root@ewaste-db:3306/ewaste"
+)
+
     app.config["SQLALCHEMY_DATABASE_URI"] = database_url
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -466,6 +466,7 @@ def create_app() -> Flask:
 if __name__ == "__main__":
     # Development run: python app.py
     app = create_app()
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
 
 
